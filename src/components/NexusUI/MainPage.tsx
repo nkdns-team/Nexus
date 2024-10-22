@@ -3,12 +3,14 @@ import VerticalSidebar from "./VerticalSidebar";
 import ChatList from "./ChatList";
 import ChatArea from "./ChatArea";
 
+import styles from '@/styles/NexusUI/MainPage.module.css'
+
 export default function MainPage() {
 	const [selectedChat, setSelectedChat] = useState("test");
 
 	return (
 		<div
-			className="flex bg-gray-100"
+			className={styles.container}
 		>
 			<VerticalSidebar />
 			<ChatList selectedChat={selectedChat} setSelectedChat={setSelectedChat} />

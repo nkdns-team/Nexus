@@ -1,0 +1,40 @@
+.container {
+	flex: 1;
+	position: relative;
+}
+
+.scrollArea {
+	padding: 1rem;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+}
+
+.messageWrapper {
+	margin-bottom: 1rem;
+}
+
+.userMessage {
+	text-align: right;
+}
+
+.messageContent {
+	display: inline-block;
+	padding: 0.5rem;
+	border-radius: 0.5rem;
+}
+
+.userMessageContent {
+	background-color: #3b82f6;
+	color: white;
+}
+
+.otherMessageContent {
+	background-color: #e5e7eb;
+}
+
+.messageTime {
+	font-size: 0.75rem;
+	color: #6b7280;
+	margin-top: 0.25rem;
+}

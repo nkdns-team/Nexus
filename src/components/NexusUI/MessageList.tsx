@@ -1,6 +1,8 @@
 import React from "react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
+import styles from '@/styles/NexusUI/MessageList.module.css'
+
 export default function MessageList() {
 	const messages = [
 		{ id: 1, sender: "test", content: "test msg", time: "2024/2/28 11:47:50" },
@@ -11,15 +13,16 @@ export default function MessageList() {
 	];
 
 	return (
-		<div className="flex-1" style={{ position: "relative" }}>
-			<ScrollArea className="p-4" style={{ position: "absolute", height: "100%", width: "100%" }}>
+		<div className={styles.container}>
+			<ScrollArea className={styles.scrollArea}>
 				{messages.map((message) => (
-					<div key={message.id} className={`mb-4 ${message.sender === "user" ? "text-right" : ""}`}>
+					<div key={message.id}
+						 className={`${styles.messageWrapper} ${message.sender === "user" ? styles.userMessage : ''}`}>
 						<div
-							className={`inline-block p-2 rounded-lg ${message.sender === "user" ? "bg-blue-500 text-white" : "bg-gray-200"}`}>
+							className={`${styles.messageContent} ${message.sender === "user" ? styles.userMessageContent : styles.otherMessageContent}`}>
 							{message.content}
 						</div>
-						<div className="text-xs text-gray-500 mt-1">{message.time}</div>
+						<div className={styles.messageTime}>{message.time}</div>
 					</div>
 				))}
 			</ScrollArea>

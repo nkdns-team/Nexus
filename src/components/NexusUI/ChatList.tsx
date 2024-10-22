@@ -5,6 +5,8 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Plus } from "lucide-react";
 
+import styles from '@/styles/NexusUI/ChatList.module.css'
+
 interface ChatListProps {
 	selectedChat: string;
 	setSelectedChat: (chat: string) => void;
@@ -39,35 +41,34 @@ export default function ChatList({ selectedChat, setSelectedChat }: ChatListProp
 	];
 
 	return (
-		<div className="w-80 bg-white border-r">
-			<div className="p-4 border-b flex items-center">
-				<Input placeholder="搜索" className="w-full mr-2" />
-				<Button variant="ghost" size="icon">
-					<Plus className="h-6 w-6" />
+		<div className={styles.container}>
+			<div className={styles.searchContainer}>
+				<Input placeholder="搜索" className={styles.searchInput} />
+				<Button variant="ghost" size="icon" aria-label="Add new chat">
+					<Plus className={styles.addIcon} />
 				</Button>
 			</div>
-			<ScrollArea className="h-[calc(100vh-68px-32px-5px)]">
+			<ScrollArea className={styles.chatList}>
 				{chats.map((chat) => (
 					<div
 						key={chat.id}
-						className={`flex items-center p-4 cursor-pointer hover:bg-gray-100 ${selectedChat === chat.name ? "bg-blue-50" : ""}`}
+						className={`${styles.chatItem} ${selectedChat === chat.name ? styles.selectedChat : ''}`}
 						onClick={() => setSelectedChat(chat.name)}
 					>
-						<Avatar className="h-10 w-10">
+						<Avatar className={styles.avatar}>
 							<AvatarImage src={chat.avatar} alt={chat.name} />
 							<AvatarFallback>{chat.name[0]}</AvatarFallback>
 						</Avatar>
-						<div className="ml-3 flex-1">
-							<div className="flex justify-between">
-								<span className="font-semibold">{chat.name}</span>
+						<div className={styles.chatInfo}>
+							<div className={styles.chatHeader}>
+								<span className={styles.chatName}>{chat.name}</span>
 							</div>
-							<p className="text-sm text-gray-600 truncate">{chat.lastMessage}</p>
+							<p className={styles.lastMessage}>{chat.lastMessage}</p>
 						</div>
-						<div className="flex flex-col items-end">
-							<span className="text-xs text-gray-500 mb-1">{chat.time}</span>
+						<div className={styles.chatMeta}>
+							<span className={styles.chatTime}>{chat.time}</span>
 							{chat.unread > 0 && (
-								<div
-									className="bg-blue-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+								<div className={styles.unreadBadge}>
 									{chat.unread}
 								</div>
 							)}
