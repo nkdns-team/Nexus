@@ -5,6 +5,11 @@ declare const MAIN_WINDOW_VITE_DEV_SERVER_URL: string;
 declare const MAIN_WINDOW_VITE_NAME: string;
 
 // Preload types
+interface IpcType {
+	send(channel: any, value: any): void;
+	on(channel: any, callback: (...args: any[]) => void): () => void;
+}
+
 interface ThemeModeContext {
     toggle: () => Promise<boolean>;
     dark: () => Promise<void>;
@@ -17,8 +22,13 @@ interface ElectronWindow {
     maximize: () => Promise<void>;
     close: () => Promise<void>;
 }
+interface ChromeTools {
+	ipc: IpcType;
+	open_dev_tools: () => Promise<void>;
+}
 
 declare interface Window {
-    themeMode: ThemeModeContext;
+	chromeTools: ChromeTools;
+	themeMode: ThemeModeContext;
     electronWindow: ElectronWindow;
 }
