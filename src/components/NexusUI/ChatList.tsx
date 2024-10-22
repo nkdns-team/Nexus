@@ -25,7 +25,7 @@ export default function ChatList({ selectedChat, setSelectedChat }: ChatListProp
           <Plus className="h-6 w-6" />
         </Button>
       </div>
-      <ScrollArea className="h-[calc(100vh-68px)]">
+      <ScrollArea className="h-[calc(100vh-68px-32px-5px)]">
         {chats.map((chat) => (
           <div
             key={chat.id}
