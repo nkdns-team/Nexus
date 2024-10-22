@@ -1,28 +1,28 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-export default function MaxRestoreButton({maximizeWindow}: {maximizeWindow: () => {}}) {
+export default function MaxRestoreButton({ maximizeWindow }: { maximizeWindow: () => {} }) {
 	const { t } = useTranslation();
 	const [isMaximize, setIsMaximize] = useState(false);
 	useEffect(() => {
 		const handleWindowStatus = (event_type: string, status: string) => {
-			if(event_type !== 'window_size') return;
-			setIsMaximize(status === 'maximize')
+			if (event_type !== "window_size") return;
+			setIsMaximize(status === "maximize");
 		};
-		return window.chromeTools.ipc.on('window-status', handleWindowStatus);
-	}, [])
+		return window.chromeTools.ipc.on("window-status", handleWindowStatus);
+	}, []);
 
 	return (
 		<button
-                title={isMaximize ? t('Restore'): t('Maximize')}
-                type="button"
-                className="p-2 hover:bg-slate-300"
-                onClick={() => {
-					maximizeWindow();
-				}}
-            >
-                <svg aria-hidden="true" role="img" width="12" height="12" viewBox="0 0 12 12">
-					{ isMaximize
+			title={isMaximize ? t("Restore") : t("Maximize")}
+			type="button"
+			className="p-2 hover:bg-slate-300"
+			onClick={() => {
+				maximizeWindow();
+			}}
+		>
+			<svg aria-hidden="true" role="img" width="12" height="12" viewBox="0 0 12 12">
+				{isMaximize
 					?
 					<>
 						<rect
@@ -33,16 +33,16 @@ export default function MaxRestoreButton({maximizeWindow}: {maximizeWindow: () =
 							fill="none"
 							stroke="currentColor"
 						/>
-						<polyline points="3.5,1 3.5,4" stroke="currentColor" fill="none"/>
-						<polyline points="3,1.5 11,1.5" stroke="currentColor" fill="none"/>
-						<polyline points="10.5,1 10.5,9" stroke="currentColor" fill="none"/>
-						<polyline points="11,8.5 8,8.5" stroke="currentColor" fill="none"/>
+						<polyline points="3.5,1 3.5,4" stroke="currentColor" fill="none" />
+						<polyline points="3,1.5 11,1.5" stroke="currentColor" fill="none" />
+						<polyline points="10.5,1 10.5,9" stroke="currentColor" fill="none" />
+						<polyline points="11,8.5 8,8.5" stroke="currentColor" fill="none" />
 					</>
 					:
-					<rect width="9" height="9" x="1.5" y="1.5" fill="none" stroke="currentColor"/>
-					}
+					<rect width="9" height="9" x="1.5" y="1.5" fill="none" stroke="currentColor" />
+				}
 
-                </svg>
+			</svg>
 		</button>
-	)
+	);
 }
