@@ -14,7 +14,7 @@ export default function MessageList() {
 
 	return (
 		<div className={styles.container}>
-			<ScrollArea className={styles.scrollArea}>
+			<ScrollArea className={styles.scrollArea} style={{position:'absolute'}}>
 				{messages.map((message) => (
 					<div key={message.id}
 						 className={`${styles.messageWrapper} ${message.sender === "user" ? styles.userMessage : ''}`}>
