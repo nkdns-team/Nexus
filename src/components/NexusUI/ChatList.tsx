@@ -8,37 +8,16 @@ import { Plus } from "lucide-react";
 import styles from '@/styles/NexusUI/ChatList.module.css'
 
 interface ChatListProps {
-	selectedChat: string;
-	setSelectedChat: (chat: string) => void;
+  selectedChat: string
+  setSelectedChat: (chat: string) => void
 }
 
 export default function ChatList({ selectedChat, setSelectedChat }: ChatListProps) {
-	const chats = [
-		{
-			id: 1,
-			name: "test",
-			avatar: "/placeholder.svg?height=40&width=40",
-			lastMessage: "test",
-			time: "19:25",
-			unread: 7,
-		},
-		{
-			id: 2,
-			name: "test1",
-			avatar: "/placeholder.svg?height=40&width=40",
-			lastMessage: "test",
-			time: "19:01",
-			unread: 0,
-		},
-		{
-			id: 3,
-			name: "test2",
-			avatar: "/placeholder.svg?height=40&width=40",
-			lastMessage: "test",
-			time: "18:54",
-			unread: 0,
-		},
-	];
+  const chats = [
+    { id: 1, name: 'test', avatar: '/placeholder.svg?height=40&width=40', lastMessage: 'test', time: '19:25', unread: 7 },
+    { id: 2, name: 'test1', avatar: '/placeholder.svg?height=40&width=40', lastMessage: 'test', time: '19:01', unread: 0 },
+    { id: 3, name: 'test2', avatar: '/placeholder.svg?height=40&width=40', lastMessage: 'test', time: '18:54', unread: 0 },
+  ]
 
 	return (
 		<div className={styles.container}>

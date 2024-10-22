@@ -1,6 +1,5 @@
 import React from "react";
 import DragWindowRegion from "@/components/DragWindowRegion";
-// import NavigationMenu from "@/components/NavigationMenu";
 
 import styles from "@/styles/BaseLayout.module.css";
 import WindowStatusProvider from "@/components/Contexts/WindowStatusContext";
