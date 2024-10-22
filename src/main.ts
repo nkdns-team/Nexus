@@ -4,6 +4,8 @@ import registerListeners from "./helpers/ipc/listeners-register";
 //import started from "electron-squirrel-startup";
 import path from "path";
 
+import { DEFAULT_HEIGHT, DEFAULT_MIN_HEIGHT, DEFAULT_MIN_WIDTH, DEFAULT_WIDTH } from "./constants/SharedConstants";
+
 const inDevelopment = process.env.NODE_ENV === "development";
 let mainWindow: Electron.CrossProcessExports.BrowserWindow | null = null;
 
@@ -14,8 +16,10 @@ if (require("electron-squirrel-startup")) {
 function createWindow() {
 	const preload = path.join(__dirname, "preload.js");
 	mainWindow = new BrowserWindow({
-		width: 800,
-		height: 600,
+		width: DEFAULT_WIDTH,
+		height: DEFAULT_HEIGHT,
+		minWidth: DEFAULT_MIN_WIDTH,
+		minHeight: DEFAULT_MIN_HEIGHT,
 		webPreferences: {
 			// devTools: inDevelopment,
 			contextIsolation: true,
@@ -48,6 +52,19 @@ function createWindow() {
 				mainWindow.webContents.send('window-status', 'window_size', 'restore');
 			}
 		});
+		mainWindow.on("will-resize", (
+			_: Electron.Event,
+			newBounds: Electron.Rectangle,
+			details: Electron.WillResizeDetails) =>
+		{
+			const event_info = {
+				...newBounds,
+				...details,
+			}
+			if(mainWindow){
+				mainWindow.webContents.send('window-status', 'window_resize', JSON.stringify(event_info));
+			}
+		})
 	}
 
 	if(inDevelopment) {
@@ -59,14 +76,14 @@ app.whenReady().then(createWindow);
 
 //osX only
 app.on("window-all-closed", () => {
-    if (process.platform !== "darwin") {
-        app.quit();
-    }
+	if (process.platform !== "darwin") {
+		app.quit();
+	}
 });
 
 app.on("activate", () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-        createWindow();
-    }
+	if (BrowserWindow.getAllWindows().length === 0) {
+		createWindow();
+	}
 });
 //osX only ends

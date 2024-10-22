@@ -5,7 +5,8 @@ export default function MaxRestoreButton({maximizeWindow}: {maximizeWindow: () =
 	const { t } = useTranslation();
 	const [isMaximize, setIsMaximize] = useState(false);
 	useEffect(() => {
-		const handleWindowStatus = (_: any, status: string) => {
+		const handleWindowStatus = (event_type: string, status: string) => {
+			if(event_type !== 'window_size') return;
 			setIsMaximize(status === 'maximize')
 		};
 		return window.chromeTools.ipc.on('window-status', handleWindowStatus);
