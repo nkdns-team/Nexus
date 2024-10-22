@@ -11,15 +11,17 @@ export default function MessageList() {
   ]
 
   return (
-    <ScrollArea className="flex-1 p-4">
-      {messages.map((message) => (
-        <div key={message.id} className={`mb-4 ${message.sender === 'user' ? 'text-right' : ''}`}>
-          <div className={`inline-block p-2 rounded-lg ${message.sender === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>
-            {message.content}
+    <div className='flex-1' style={{position:'relative'}}>
+      <ScrollArea className="p-4" style={{position:'absolute',height:'100%',width:'100%'}}>
+        {messages.map((message) => (
+          <div key={message.id} className={`mb-4 ${message.sender === 'user' ? 'text-right' : ''}`}>
+            <div className={`inline-block p-2 rounded-lg ${message.sender === 'user' ? 'bg-blue-500 text-white' : 'bg-gray-200'}`}>
+              {message.content}
+            </div>
+            <div className="text-xs text-gray-500 mt-1">{message.time}</div>
           </div>
-          <div className="text-xs text-gray-500 mt-1">{message.time}</div>
-        </div>
-      ))}
-    </ScrollArea>
+        ))}
+      </ScrollArea>
+    </div>
   )
 }
