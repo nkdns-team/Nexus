@@ -73,6 +73,7 @@
         "@radix-ui/react-toggle-group": "^1.1.0",
         "@tanstack/react-router": "^1.67.0",
         "@tanstack/router-devtools": "^1.70.1",
+        "@types/css-modules": "^1.0.5",
         "@vitejs/plugin-react": "^4.3.2",
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.1.1",

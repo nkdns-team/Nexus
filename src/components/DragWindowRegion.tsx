@@ -1,5 +1,6 @@
 import { closeWindow, maximizeWindow, minimizeWindow } from "@/helpers/window_helpers";
 import React, { type ReactNode } from "react";
+import MaxRestoreButton from "@/components/MaxRestoreButton";
 
 interface DragWindowRegionProps {
     title?: ReactNode;
@@ -33,23 +34,9 @@ function WindowButtons() {
                     <rect fill="currentColor" width="10" height="1" x="1" y="6"></rect>
                 </svg>
             </button>
-            <button
-                title="Maximize"
-                type="button"
-                className="p-2 hover:bg-slate-300"
-                onClick={maximizeWindow}
-            >
-                <svg aria-hidden="true" role="img" width="12" height="12" viewBox="0 0 12 12">
-                    <rect
-                        width="9"
-                        height="9"
-                        x="1.5"
-                        y="1.5"
-                        fill="none"
-                        stroke="currentColor"
-                    ></rect>
-                </svg>
-            </button>
+			<MaxRestoreButton
+				maximizeWindow={maximizeWindow}
+			/>
             <button
                 type="button"
                 title="Close"
