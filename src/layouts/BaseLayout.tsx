@@ -6,7 +6,6 @@ import styles from "@/styles/BaseLayout.module.css";
 
 export default function BaseLayout({ children }: { children: React.ReactNode }) {
     return (
-        <>
             <div style={{height : '100%', display: 'flex',flexDirection:'column'}}>
                 <div className={styles.container}>
                     <DragWindowRegion title="Nexus" />
@@ -15,6 +14,5 @@ export default function BaseLayout({ children }: { children: React.ReactNode }) 
                 </div>
                 <main>{children}</main>
             </div>
-        </>
     );
 }
