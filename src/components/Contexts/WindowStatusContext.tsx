@@ -2,13 +2,6 @@ import React, { createContext, ReactNode, useEffect, useState } from "react";
 
 import { DEFAULT_HEIGHT, DEFAULT_WIDTH } from "@/constants/SharedConstants";
 
-export interface WindowStatus {
-	height: number,
-	width: number,
-	x: number,
-	y: number,
-}
-
 export const WindowStatusContext = createContext<WindowStatus>({
 	height: 0,
 	width: 0,

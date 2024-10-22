@@ -9,6 +9,12 @@ interface IpcType {
 	send(channel: any, value: any): void;
 	on(channel: any, callback: (...args: any[]) => void): () => void;
 }
+interface WindowStatus {
+	height: number,
+	width: number,
+	x: number,
+	y: number,
+}
 
 interface ThemeModeContext {
     toggle: () => Promise<boolean>;
