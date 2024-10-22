@@ -4,11 +4,11 @@ import ChatList from './ChatList'
 import ChatArea from './ChatArea'
 import { useState } from 'react'
 
-export default function Layout() {
+export default function MainPage() {
   const [selectedChat, setSelectedChat] = useState('test')
 
   return (
-    <div 
+    <div
       className="flex bg-gray-100"
     >
       <VerticalSidebar />
