@@ -3,7 +3,7 @@ import ChatHeader from "./ChatHeader";
 import MessageList from "./MessageList";
 import MessageInput from "./MessageInput";
 
-import styles from '@/styles/NexusUI/ChatArea.module.css'
+import styles from "@/styles/NexusUI/ChatArea.module.css";
 
 interface ChatAreaProps {
 	selectedChat: string;

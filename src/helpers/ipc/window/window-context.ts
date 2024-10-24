@@ -1,4 +1,4 @@
-import { WIN_MINIMIZE_CHANNEL, WIN_MAXIMIZE_CHANNEL, WIN_CLOSE_CHANNEL } from "./window-channels";
+import { WIN_CLOSE_CHANNEL, WIN_MAXIMIZE_CHANNEL, WIN_MINIMIZE_CHANNEL } from "./window-channels";
 
 export function exposeWindowContext() {
     const { contextBridge, ipcRenderer } = window.require("electron");

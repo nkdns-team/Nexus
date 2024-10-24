@@ -1,7 +1,6 @@
 import React, { createContext, ReactNode, useEffect, useState } from "react";
 
 import { DEFAULT_HEIGHT, DEFAULT_WIDTH } from "@/constants/SharedConstants";
-import { ipcRenderer } from "electron";
 
 const defaultVal: WindowStatus = {
 	size: {height: DEFAULT_HEIGHT, width: DEFAULT_WIDTH },
@@ -14,9 +13,7 @@ const defaultVal: WindowStatus = {
 export const WindowStatusContext = createContext<WindowStatus>(defaultVal);
 
 export default function WindowStatusProvider({ children }: { children: ReactNode }) {
-	const default_status: WindowStatus = defaultVal;
-
-	const [status, setStatus] = useState<WindowStatus>(default_status);
+	const [status, setStatus] = useState<WindowStatus>(defaultVal);
 
 	useEffect(() => {
 		const updateStatus = (event_type: string, status: string) => {

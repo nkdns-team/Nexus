@@ -1,7 +1,5 @@
 import { ipcRenderer } from "electron";
-import {
-	CHROME_OPEN_DEVTOOLS_CHANNEL,
-} from "./chrome-channels";
+import { CHROME_OPEN_DEVTOOLS_CHANNEL } from "./chrome-channels";
 
 const ipcHandler: IpcType = {
 	send(channel: any, value: any) {

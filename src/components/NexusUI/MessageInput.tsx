@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Mic, Paperclip, Send, Smile } from "lucide-react";
 
-import styles from '@/styles/NexusUI/MessageInput.module.css'
+import styles from "@/styles/NexusUI/MessageInput.module.css";
 
 export default function MessageInput() {
 	return (

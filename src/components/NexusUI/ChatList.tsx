@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Plus } from "lucide-react";
 
-import styles from '@/styles/NexusUI/ChatList.module.css'
+import styles from "@/styles/NexusUI/ChatList.module.css";
 
 interface ChatListProps {
   selectedChat: string

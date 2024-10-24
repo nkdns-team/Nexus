@@ -3,7 +3,7 @@ import VerticalSidebar from "./VerticalSidebar";
 import ChatList from "./ChatList";
 import ChatArea from "./ChatArea";
 
-import styles from '@/styles/NexusUI/MainPage.module.css'
+import styles from "@/styles/NexusUI/MainPage.module.css";
 import { WindowStatusContext } from "@/components/Contexts/WindowStatusContext";
 
 export default function MainPage() {

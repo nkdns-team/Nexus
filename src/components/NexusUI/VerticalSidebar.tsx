@@ -3,7 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Settings } from "lucide-react";
 
-import styles from '@/styles/NexusUI/VerticalSidebar.module.css'
+import styles from "@/styles/NexusUI/VerticalSidebar.module.css";
 
 export default function VerticalSidebar() {
 	return (

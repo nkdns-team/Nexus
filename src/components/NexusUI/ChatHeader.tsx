@@ -1,7 +1,7 @@
 import React from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-import styles from '@/styles/NexusUI/ChatHeader.module.css'
+import styles from "@/styles/NexusUI/ChatHeader.module.css";
 
 interface ChatHeaderProps {
 	selectedChat: string;

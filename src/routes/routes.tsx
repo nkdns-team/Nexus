@@ -1,7 +1,6 @@
 import { createRoute } from "@tanstack/react-router";
 import HomePage from "../pages/HomePage";
 import { RootRoute } from "./__root";
-import AboutPage from "@/pages/AboutPage";
 import MainPage from "../components/NexusUI/MainPage";
 
 // TODO: Steps to add a new route:
