@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from "electron";
+import { app, Menu, Tray, BrowserWindow } from "electron";
 import registerListeners from "./helpers/ipc/listeners-register";
 import path from "path";
 
@@ -6,6 +6,7 @@ import { DEFAULT_HEIGHT, DEFAULT_MIN_HEIGHT, DEFAULT_MIN_WIDTH, DEFAULT_WIDTH } 
 
 const inDevelopment = process.env.NODE_ENV === "development";
 
+let tray: Tray | null = null;
 let mainWindow: Electron.CrossProcessExports.BrowserWindow | null = null;
 
 if (require("electron-squirrel-startup")) {
@@ -181,6 +182,16 @@ function createWindow() {
 	if(inDevelopment) {
 		mainWindow.webContents.openDevTools()
 	}
+
+	tray = new Tray('src/assets/images/icon.ico')
+	const contextMenu = Menu.buildFromTemplate([
+		{ label: 'Item1', type: 'radio' },
+		{ label: 'Item2', type: 'radio' },
+		{ label: 'Item3', type: 'radio', checked: true },
+		{ label: 'Item4', type: 'radio' }
+	])
+	tray.setToolTip('This is my application.')
+	tray.setContextMenu(contextMenu)
 }
 
 app.whenReady().then(createWindow);
