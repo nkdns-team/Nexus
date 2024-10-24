@@ -10,10 +10,24 @@ interface IpcType {
 	on(channel: any, callback: (...args: any[]) => void): () => void;
 }
 interface WindowStatus {
-	height: number,
-	width: number,
-	x: number,
-	y: number,
+	size: {
+		width: number;
+		height: number;
+	},
+	position: {
+		x: number,
+		y: number,
+	},
+	status: {
+		isMaximized: boolean,
+		isMinimized: boolean,
+		isFullScreen: boolean,
+
+		isResizable: boolean,
+		isVisible: boolean,
+	},
+	title: string,
+	opacity: number,
 }
 
 interface ThemeModeContext {

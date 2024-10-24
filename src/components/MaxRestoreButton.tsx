@@ -1,16 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { WindowStatusContext } from "@/components/Contexts/WindowStatusContext";
 
 export default function MaxRestoreButton({ maximizeWindow }: { maximizeWindow: () => {} }) {
 	const { t } = useTranslation();
-	const [isMaximize, setIsMaximize] = useState(false);
-	useEffect(() => {
-		const handleWindowStatus = (event_type: string, status: string) => {
-			if (event_type !== "window_size") return;
-			setIsMaximize(status === "maximize");
-		};
-		return window.chromeTools.ipc.on("window-status", handleWindowStatus);
-	}, []);
+	const windowStatus = useContext<WindowStatus>(WindowStatusContext);
+	const isMaximize = windowStatus.status.isMaximized;
 
 	return (
 		<button

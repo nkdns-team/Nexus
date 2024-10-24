@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
 import registerListeners from "./helpers/ipc/listeners-register";
 // "electron-squirrel-startup" seems broken when packaging with vite
 //import started from "electron-squirrel-startup";
@@ -7,6 +7,7 @@ import path from "path";
 import { DEFAULT_HEIGHT, DEFAULT_MIN_HEIGHT, DEFAULT_MIN_WIDTH, DEFAULT_WIDTH } from "./constants/SharedConstants";
 
 const inDevelopment = process.env.NODE_ENV === "development";
+
 let mainWindow: Electron.CrossProcessExports.BrowserWindow | null = null;
 
 if (require("electron-squirrel-startup")) {
@@ -33,6 +34,7 @@ function createWindow() {
 	registerListeners(mainWindow);
 
 	if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
+		console.log(MAIN_WINDOW_VITE_DEV_SERVER_URL);
 		mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
 	} else {
 		mainWindow.loadFile(
@@ -41,30 +43,138 @@ function createWindow() {
 	}
 
 	if(mainWindow){
-		mainWindow.on('maximize', () => {
-			if(mainWindow){
-				mainWindow.webContents.send('window-status', 'window_size', 'maximize');
-			}
+		let window = mainWindow;
+
+		// 获取窗体信息
+		const getWindowInfo = (mainWindow: BrowserWindow): WindowStatus => {
+			const { width, height, x, y } = mainWindow.getBounds();
+			const isMaximized = mainWindow.isMaximized();
+			const isMinimized = mainWindow.isMinimized();
+			const isFullScreen = mainWindow.isFullScreen();
+			const title = mainWindow.getTitle();
+			const isResizable = mainWindow.isResizable();
+			const isVisible = mainWindow.isVisible();
+			const opacity = mainWindow.getOpacity();
+
+			return {
+				size: {
+					width: width,
+					height: height,
+				},
+				position: {
+					x: x,
+					y: y,
+				},
+				status: {
+					isMaximized,
+					isMinimized,
+					isFullScreen,
+					isResizable,
+					isVisible,
+				},
+				title: title,
+				opacity: opacity,
+			};
+		};
+		let windowStatus: WindowStatus = getWindowInfo(window);
+
+		const updateWindowInfo = (status: WindowStatus, reason: string): void => {
+			windowStatus = status;
+			window.webContents.send('set-window-status', reason, JSON.stringify(windowStatus));
+		};
+
+		window.webContents.on('did-finish-load', () => {
+			updateWindowInfo(windowStatus, 'init');
 		});
 
-		mainWindow.on('unmaximize', () => {
-			if(mainWindow){
-				mainWindow.webContents.send('window-status', 'window_size', 'restore');
-			}
+		// 监听窗口大小变化
+		window.on('resize', () => {
+			const { width, height } = window.getBounds();
+			updateWindowInfo({
+				...windowStatus,
+				size: {
+					width: width,
+					height: height,
+				}
+			}, 'window-resize');
 		});
-		mainWindow.on("will-resize", (
-			_: Electron.Event,
-			newBounds: Electron.Rectangle,
-			details: Electron.WillResizeDetails) =>
-		{
-			const event_info = {
-				...newBounds,
-				...details,
-			}
-			if(mainWindow){
-				mainWindow.webContents.send('window-status', 'window_resize', JSON.stringify(event_info));
-			}
-		})
+
+		// 监听窗口位置变化
+		window.on('move', () => {
+			const { x, y } = window.getBounds();
+			updateWindowInfo({
+				...windowStatus,
+				position: {
+					x: x,
+					y: y,
+				}
+			}, 'window-move');
+		});
+
+		// 监听窗口最大化
+		window.on('maximize', () => {
+			updateWindowInfo({
+				...windowStatus,
+				status: {
+					...windowStatus.status,
+					isMaximized: true,
+				}
+			}, 'window-maximize');
+		});
+
+		// 监听窗口恢复
+		window.on('unmaximize', () => {
+			updateWindowInfo({
+				...windowStatus,
+				status: {
+					...windowStatus.status,
+					isMaximized: false,
+				}
+			}, 'window-unmaximize');
+		});
+
+		// 监听窗口最小化
+		window.on('minimize', () => {
+			updateWindowInfo({
+				...windowStatus,
+				status: {
+					...windowStatus.status,
+					isMinimized: true,
+				}
+			}, 'window-minimize');
+		});
+
+		// 监听窗口恢复
+		window.on('restore', () => {
+			updateWindowInfo({
+				...windowStatus,
+				status: {
+					...windowStatus.status,
+					isMinimized: false,
+				}
+			}, 'window-restore');
+		});
+
+		// 监听全屏状态变化
+		window.on('enter-full-screen', () => {
+			updateWindowInfo({
+				...windowStatus,
+				status: {
+					...windowStatus.status,
+					isFullScreen: true,
+				}
+			}, 'window-enter-full-screen');
+		});
+
+		window.on('leave-full-screen', () => {
+			updateWindowInfo({
+				...windowStatus,
+				status: {
+					...windowStatus.status,
+					isFullScreen: false,
+				}
+			}, 'window-leave-full-screen');
+		});
 	}
 
 	if(inDevelopment) {
